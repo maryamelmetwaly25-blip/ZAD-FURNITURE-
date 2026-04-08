@@ -288,9 +288,16 @@ const StyleFinder = () => {
                 >
                   إعادة الاختبار
                 </button>
-                <a href="#contact" className="px-8 py-3 bg-gold text-luxury-black font-bold hover:bg-gold-light transition-all">
+                <button 
+                  onClick={() => {
+                    const rec = getRecommendation();
+                    const message = `مرحباً، لقد أجريت اختبار نمط الأثاث وكانت النتيجة: ${rec.title}.\nالوصف: ${rec.description}`;
+                    window.open(`https://wa.me/201061477726?text=${encodeURIComponent(message)}`, '_blank');
+                  }}
+                  className="px-8 py-3 bg-gold text-luxury-black font-bold hover:bg-gold-light transition-all"
+                >
                   اطلب استشارة مجانية
-                </a>
+                </button>
               </div>
             </motion.div>
           )}
@@ -405,8 +412,8 @@ const RoomAssistant = () => {
             </h3>
 
             <div className="space-y-8">
-              <div className="flex gap-4">
-                <div className="w-10 h-10 border border-gold/30 flex items-center justify-center shrink-0">
+              <div className="flex gap-4 group cursor-pointer">
+                <div className="w-10 h-10 border border-gold/30 flex items-center justify-center shrink-0 group-hover:border-gold group-hover:bg-gold/10 transition-all">
                   <span className="text-gold font-serif">01</span>
                 </div>
                 <div>
@@ -415,8 +422,8 @@ const RoomAssistant = () => {
                 </div>
               </div>
 
-              <div className="flex gap-4">
-                <div className="w-10 h-10 border border-gold/30 flex items-center justify-center shrink-0">
+              <div className="flex gap-4 group cursor-pointer">
+                <div className="w-10 h-10 border border-gold/30 flex items-center justify-center shrink-0 group-hover:border-gold group-hover:bg-gold/10 transition-all">
                   <span className="text-gold font-serif">02</span>
                 </div>
                 <div>
@@ -425,8 +432,8 @@ const RoomAssistant = () => {
                 </div>
               </div>
 
-              <div className="flex gap-4">
-                <div className="w-10 h-10 border border-gold/30 flex items-center justify-center shrink-0">
+              <div className="flex gap-4 group cursor-pointer">
+                <div className="w-10 h-10 border border-gold/30 flex items-center justify-center shrink-0 group-hover:border-gold group-hover:bg-gold/10 transition-all">
                   <span className="text-gold font-serif">03</span>
                 </div>
                 <div>
@@ -438,8 +445,14 @@ const RoomAssistant = () => {
 
             <div className="mt-12 p-6 bg-gold/5 border border-gold/20 text-center">
               <p className="text-sm text-gold mb-4">هل تريد معاينة ثلاثية الأبعاد لمساحتك؟</p>
-              <button className="text-white flex items-center gap-2 mx-auto hover:gap-4 transition-all">
-                احجز موعداً مع مصمم داخلي <ChevronLeft size={18} />
+              <button 
+                onClick={() => {
+                  const message = `مرحباً، أريد استشارة بخصوص ${roomType === 'living' ? 'غرفة معيشة' : roomType === 'bedroom' ? 'غرفة نوم' : 'غرفة طعام'} بمساحة ${area} متر مربع (${width}x${length}).`;
+                  window.open(`https://wa.me/201061477726?text=${encodeURIComponent(message)}`, '_blank');
+                }}
+                className="text-white flex items-center gap-2 mx-auto hover:gap-4 transition-all"
+              >
+                ارسل التفاصيل لخبير تصميم <ChevronLeft size={18} />
               </button>
             </div>
           </motion.div>
@@ -536,10 +549,21 @@ const Customizer = () => {
             </div>
 
             <div className="mt-12 pt-8 border-t border-gold/20">
-              <button className="w-full py-4 bg-gold text-luxury-black font-bold uppercase tracking-widest hover:bg-gold-light transition-all mb-4">
+              <button 
+                onClick={() => {
+                  const woodLabel = woods.find(w => w.id === wood)?.label;
+                  const colorLabel = colors.find(c => c.id === color)?.label;
+                  const message = `مرحباً، أود طلب تصميم مخصص:\n- نوع الخشب: ${woodLabel}\n- اللون: ${colorLabel}\n- الأبعاد: ${size}`;
+                  window.open(`https://wa.me/201061477726?text=${encodeURIComponent(message)}`, '_blank');
+                }}
+                className="w-full py-4 bg-gold text-luxury-black font-bold uppercase tracking-widest hover:bg-gold-light transition-all mb-4"
+              >
                 طلب تصميم مخصص
               </button>
-              <button className="w-full py-4 border border-gold text-gold font-bold uppercase tracking-widest hover:bg-gold/10 transition-all">
+              <button 
+                onClick={() => window.open('https://wa.me/201061477726?text=مرحباً، أود التحدث مع خبير بخصوص تخصيص الأثاث.', '_blank')}
+                className="w-full py-4 border border-gold text-gold font-bold uppercase tracking-widest hover:bg-gold/10 transition-all"
+              >
                 تحدث مع خبير
               </button>
             </div>
@@ -667,7 +691,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="text-gold uppercase tracking-wider text-sm mb-1">الهاتف</h4>
-                  <p className="text-xl dir-ltr text-right">+20 150 508 8613</p>
+                  <a href="tel:+201505088613" className="text-xl dir-ltr text-right hover:text-gold transition-colors block">+20 150 508 8613</a>
                 </div>
               </div>
 
@@ -677,7 +701,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="text-gold uppercase tracking-wider text-sm mb-1">واتساب</h4>
-                  <p className="text-xl dir-ltr text-right">+20 106 147 7726</p>
+                  <a href="https://wa.me/201061477726" target="_blank" rel="noreferrer" className="text-xl dir-ltr text-right hover:text-gold transition-colors block">+20 106 147 7726</a>
                 </div>
               </div>
 
